@@ -1,0 +1,148 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "354dda32d89fc8cd4f5c46487f64957d355f53d8",
+        "version" : "5.6.1"
+      }
+    },
+    {
+      "identity" : "base58",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pengpengliu/Base58.git",
+      "state" : {
+        "revision" : "8f69c52c585733f0aa4c342a86beecdd7606fd82",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "bip32",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pengpengliu/BIP32",
+      "state" : {
+        "branch" : "master",
+        "revision" : "6cc7f365e597a6ac5318e938972cbccf45627878"
+      }
+    },
+    {
+      "identity" : "bip39",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pengpengliu/BIP39",
+      "state" : {
+        "branch" : "master",
+        "revision" : "e79bd90275e50643cf8f97208ffa536d0def3ec7"
+      }
+    },
+    {
+      "identity" : "crypto101",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pengpengliu/Crypto101.git",
+      "state" : {
+        "revision" : "e98df5f5548ff6d8871fbd9dfc8d55cf5331b916",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift",
+      "state" : {
+        "revision" : "12f2389aca4a07e0dd54c86ec23d0721ed88b8db",
+        "version" : "1.4.3"
+      }
+    },
+    {
+      "identity" : "moya",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Moya/Moya.git",
+      "state" : {
+        "revision" : "9b906860e3c3c09032879465c471e6375829593f",
+        "version" : "15.0.0"
+      }
+    },
+    {
+      "identity" : "reachability",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Modularize-Packages/Reachability.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "68d0c10f5e4d7cd76585868b50ced10e37cfdfaf"
+      }
+    },
+    {
+      "identity" : "reactiveswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveCocoa/ReactiveSwift.git",
+      "state" : {
+        "revision" : "c43bae3dac73fdd3cb906bd5a1914686ca71ed3c",
+        "version" : "6.7.0"
+      }
+    },
+    {
+      "identity" : "reactivex",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Modularize-Packages/ReactiveX.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ec66ee6be57cadcd14adff135c85c9f208a0d04c"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "b4307ba0b6425c0ba4178e138799946c3da594f8",
+        "version" : "6.5.0"
+      }
+    },
+    {
+      "identity" : "secp256k1.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Boilertalk/secp256k1.swift.git",
+      "state" : {
+        "revision" : "45e458ec3be46cf0a6eb68bc947f797852dc65d8",
+        "version" : "0.1.6"
+      }
+    },
+    {
+      "identity" : "serialization",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Modularize-Packages/Serialization.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5ad299c3f41d445123f70e0909ff590299dd928e"
+      }
+    },
+    {
+      "identity" : "signer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Modularize-Packages/Signer.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "60587964aa8c46d6cc4ddaa2aa40bc0c57f31b00"
+      }
+    },
+    {
+      "identity" : "socket.io-client-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/socketio/socket.io-client-swift",
+      "state" : {
+        "revision" : "a1ed825835a2d8c2555938e96557ccc05e4bebf3"
+      }
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/daltoniam/Starscream",
+      "state" : {
+        "revision" : "df8d82047f6654d8e4b655d1b1525c64e1059d21",
+        "version" : "4.0.4"
+      }
+    }
+  ],
+  "version" : 2
+}
