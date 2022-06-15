@@ -114,7 +114,7 @@
       "location" : "https://github.com/Modularize-Packages/Serialization.git",
       "state" : {
         "branch" : "main",
-        "revision" : "5ad299c3f41d445123f70e0909ff590299dd928e"
+        "revision" : "98b42949bcc5fe4bb73c140d77159d5e4ac9af06"
       }
     },
     {
@@ -123,7 +123,7 @@
       "location" : "https://github.com/Modularize-Packages/Signer.git",
       "state" : {
         "branch" : "main",
-        "revision" : "60587964aa8c46d6cc4ddaa2aa40bc0c57f31b00"
+        "revision" : "b4eb78f83c2b3871162466f40292f9d0ed4cb458"
       }
     },
     {

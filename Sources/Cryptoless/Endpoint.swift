@@ -54,6 +54,7 @@ extension Endpoint: TargetType{
     public var baseURL: URL {
         return URL(string: url)!
     }
+    
     public var path: String {
         switch self {
         case .register(_): return "/registrations"

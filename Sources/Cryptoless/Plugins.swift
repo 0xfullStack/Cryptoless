@@ -52,7 +52,7 @@ public final class SignaturePlugin: PluginType {
         switch signaturable.signatureType {
         case .initial: break
         case .identity(let token):
-            request.setValue(token, forHTTPHeaderField: "authorization")
+            request.setValue(token, forHTTPHeaderField: "Authorization")
         case .none: break
         }
         return request

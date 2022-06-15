@@ -23,12 +23,13 @@ public final class Cryptoless {
         return SocketIOProxy(
             manager: mannager,
             namespace: EventNamespace.default.rawValue,
-            payload: ["api_token": web3Token]
+            payload: ["token": web3Token]
         )
     }()
     
     public init(web3Token: String) {
         self.web3Token = web3Token
+        subscribeReachability()
     }
 }
 
@@ -156,42 +157,33 @@ extension Cryptoless {
     }
 }
 
-// MARK: - Subscription
+// MARK: - Socket
 extension Cryptoless {
-
-//    public func connect(namespace: EventNamespace = .default) {
-//        let socketClient = socketManager.socket(forNamespace: namespace.rawValue)
-//
-//        socketClient.on(clientEvent: .connect) { [weak self] data, ack in
-//            guard let self = self else { return }
-//            self.connectionStatus = .connected
-//        }
-//
-//        socketClient.on(clientEvent: .disconnect) { [weak self] data, ack in
-//            guard let self = self else { return }
-//            self.connectionStatus = .disConnected
-//        }
-//
-//        socketClient.on(clientEvent: .error) { [weak self] data, ack in
-//            guard let self = self else { return }
-//            guard let description = data.first as? String else { return }
-//            self.connectionStatus = .error(.socketConnectError(description))
-//        }
-//
-//
-//    }
-//
-//    public func disconnect(namespace: EventNamespace = .default) {
-//        socketManager.disconnectSocket(forNamespace: namespace.rawValue)
-//    }
-//
-//    public func send(_ event: CryptolessEvent) {
-//        let socketClient = socketManager.socket(forNamespace: event.namespace.rawValue)
-//        let subscriptionID = UUID()
-//        let item = SocketIODataItem(id: subscriptionID, scope: event.scope, payload: event.payload)
-//        socketClient.emit(event.action.rawValue, item)
-//    }
-//
+    
+    private func subscribeReachability() {
+        
+    }
+    
+    public func on(_ event: Event) -> Observable<[Any]> {
+        connectStatus
+            .filter { $0 }
+            .flatMapLatest { [weak self] connected -> Observable<Void> in
+                guard let self = self else { return .never() }
+                return self.proxy.rx.emit(
+                    event.action.rawValue,
+                    SocketIODataItem(id: UUID(), scope: event.scope, payload: event.payload)
+                )
+            }
+            .observe(on: MainScheduler.asyncInstance)
+            .flatMapLatest { [weak self] _ -> Observable<[Any]> in
+                guard let self = self else { return .never() }
+                return self.proxy.rx.on(event.keyPath).map { $0.0 }
+            }
+    }
+    
+    public func off(_ event: Event) -> Observable<Void> {
+        fatalError("Not implemented!!")
+    }
 //    public func subscribe<T: Decodable>(_ event: CryptolessEvent, type: T.Type, with callback: @escaping (Result<T, Web3Error>)->Void) {
 //        let socketClient = socketManager.socket(forNamespace: event.namespace.rawValue)
 //        socketClient.on(event.keyPath) { data, ack in
@@ -204,10 +196,5 @@ extension Cryptoless {
 //                }
 //            }
 //        }
-//    }
-//
-//    public func unsubscribe(_ event: CryptolessEvent, with callback: @escaping (Result<Data, Web3Error>)->Void) {
-//        let socketClient = socketManager.socket(forNamespace: event.namespace.rawValue)
-////        socketClient.off(event.keyPath)
 //    }
 }
