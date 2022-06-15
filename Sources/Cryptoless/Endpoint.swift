@@ -107,9 +107,9 @@ extension Endpoint: TargetType{
     public var task: Task {
         switch self {
         case .register, .deployAccount, .signTransaction, .transfer, .stake, .unstake, .claim:
-            return .requestParameters(parameters: signedParams, encoding: URLEncoding.default)
-        default:
             return .requestParameters(parameters: signedParams, encoding: JSONEncoding.default)
+        default:
+            return .requestParameters(parameters: signedParams, encoding: URLEncoding.default)
         }
     }
     
@@ -142,7 +142,7 @@ extension Endpoint {
             params["offset"] = String(offset)
             return params
         case .signTransaction(_, let signatures):
-            params["signatures"] = signatures
+            params["signatures"] = signatures.map { $0.mappingToJson() }
             return params
         case .sendTransaction:
             params["status"] = "PENDING" // make status be pending
@@ -201,6 +201,6 @@ extension Endpoint {
 extension Endpoint: Signaturable {
     
     public var signatureType: SignatureType {
-        return .identity(token: "Apikey f3672c3f30bf06d32f91858ab64fd384d6bb025d2d03e9f9dddb0e2196223620")
+        return .identity(token: "eyJib2R5IjoiV2ViMyBUb2tlbiBWZXJzaW9uOiAyXG5Ob25jZTogMzE1MDA4MDFcbklzc3VlZCBBdDogTW9uLCAzMCBNYXkgMjAyMiAxMTo1Njo1MCBHTVRcbkV4cGlyYXRpb24gVGltZTogVHVlLCAzMCBNYXkgMjAyMyAxMTo1Njo1MCBHTVQiLCJzaWduYXR1cmUiOiIweDAwMzEwYTViZTRkYTYxZjM2Njc5YmJmNDM1ZjVmODYyNjAxNjQzMTJjNGQyMTEyOTY1ZGZkNjM3MjNmNDE0ODI0ZTMxZmI1NGM1OGViZjkyYjhiMTQyZDhhNDM1NWI2MDcxODljNzZhMDRlMThmN2QyZDhjNzhhMzIzZmI5YmJkMWIifQ==")
     }
 }

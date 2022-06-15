@@ -18,18 +18,23 @@ final class CryptolessTests: XCTestCase {
     )
     let testSeedPhrase = "protect notable remember dress swamp wife train thrive blur spirit claw charge arch enhance crumble"
     
-    func testFetchAccounts() async throws {
+    func testFetchNetworks() {
+        let expectation = XCTestExpectation(description: "Fetching networks")
         cryptoless
             .fetchNetworks()
             .subscribe(onNext: { networks in
                 print("=================================================================")
                 print("Networks: \(networks)")
                 print("=================================================================")
+                expectation.fulfill()
             })
             .disposed(by: bag)
+        
+        wait(for: [expectation], timeout: TimeInterval(10000))
     }
     
-    func testEthereumTransfer() async throws {
+    func testEthereumTransfer() throws {
+        let expectation = XCTestExpectation(description: "Making Ethereum transfer")
         let networkId = "eth"
         let coinId = "eth"
         
@@ -71,7 +76,53 @@ final class CryptolessTests: XCTestCase {
                 print("=================================================================")
                 print("3. SendTransaction: \(transaction)")
                 print("=================================================================")
+                expectation.fulfill()
             })
             .disposed(by: bag)
+        
+        wait(for: [expectation], timeout: TimeInterval(10000))
+    }
+    
+    func testSocketIO() throws {
+
+        let expectation = XCTestExpectation(description: "Subscribe events")
+        
+        cryptoless
+            .on(.holder)
+            .mapObject([Holder].self)
+            .subscribe(onNext: { holders in
+                print(holders)
+                print("=================================================================")
+                print("Holders: \(holders)")
+                print("=================================================================")
+            })
+            .disposed(by: bag)
+        
+        cryptoless
+            .on(.instruction)
+            .mapObject([Instruction].self)
+            .subscribe(onNext: { instructions in
+                print("=================================================================")
+                print("Instructions: \(instructions)")
+                print("=================================================================")
+            })
+            .disposed(by: bag)
+
+        try testEthereumTransfer()
+        
+        wait(for: [expectation], timeout: TimeInterval(10000))
+    }
+}
+
+import Moya
+private extension ObservableType where Element == [Any] {
+    func mapObject<T>(_ type: T.Type, using decoder: JSONDecoder? = nil) -> Observable<T> where T: Decodable {
+        return self.map { data -> T in
+            let decoder = decoder ?? JSONDecoder()
+            let dic = data.first as? [String: Any]
+            let array = dic?["data"] as? [Any]
+            let jsonData = try JSONSerialization.data(withJSONObject: array ?? [], options: .prettyPrinted)
+            return try decoder.decode(T.self, from: jsonData)
+        }
     }
 }

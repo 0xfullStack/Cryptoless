@@ -14,8 +14,8 @@ public final class Cryptoless {
     private let web3Token: String
     
     private lazy var mannager: SocketManager = {
-        return SocketManager(socketURL: URL(string: socketURL)!, config: [
-            .log(false), .secure(false)
+        return SocketManager(socketURL: URL(string: testSocketURL)!, config: [
+            .log(true), .secure(false)
         ])
     }()
     
@@ -184,17 +184,4 @@ extension Cryptoless {
     public func off(_ event: Event) -> Observable<Void> {
         fatalError("Not implemented!!")
     }
-//    public func subscribe<T: Decodable>(_ event: CryptolessEvent, type: T.Type, with callback: @escaping (Result<T, Web3Error>)->Void) {
-//        let socketClient = socketManager.socket(forNamespace: event.namespace.rawValue)
-//        socketClient.on(event.keyPath) { data, ack in
-//            do {
-//                let data: T = try event.decode(data: data)
-//                callback(.success(data))
-//            } catch {
-//                if let err = error as? Web3Error {
-//                    callback(.failure(err))
-//                }
-//            }
-//        }
-//    }
 }

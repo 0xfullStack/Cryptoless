@@ -103,6 +103,14 @@ public struct Transaction: Codable, Identifiable {
         public let hash: String
         public let publicKey: String
         public let signature: String
+        
+        func mappingToJson() -> [String: String] {
+            return [
+                "hash" : hash,
+                "publicKey": publicKey,
+                "signature": signature
+            ]
+        }
     }
 }
 
