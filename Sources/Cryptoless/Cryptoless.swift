@@ -2,6 +2,8 @@ import SocketIO
 import Foundation
 import RxSwift
 import ReactiveX
+import Reachability
+import UIKit
 
 public final class Cryptoless {
     
@@ -9,10 +11,15 @@ public final class Cryptoless {
         proxy.rx.connected.share()
     }
     
-    
     private let bag = DisposeBag()
-    private let web3Token: String
+    private lazy var reachability: Reachability? = {
+        Reachability()
+    }()
+    private lazy var reachabilitySignal: Observable<Bool> = {
+        reachability?.rx.isReachable ?? .never()
+    }()
     
+    private let web3Token: String
     private lazy var mannager: SocketManager = {
         return SocketManager(socketURL: URL(string: testSocketURL)!, config: [
             .log(true), .secure(false)
@@ -161,7 +168,16 @@ extension Cryptoless {
 extension Cryptoless {
     
     private func subscribeReachability() {
-        
+        let reachable = reachabilitySignal.filter { $0 }.startWith(true).map { _ in () }
+        let enterForeground = UIApplication.rx.willEnterForeground.asObservable().startWith(())
+        Observable
+            .combineLatest(connectStatus, reachable, enterForeground)
+            .subscribe(onNext: { [weak self] (connectStatus, reachable, enterForeground) in
+                guard let self = self else { return }
+                guard !connectStatus else { return }
+                self.proxy.connectIfNeed()
+            })
+            .disposed(by: bag)
     }
     
     public func on(_ event: Event) -> Observable<[Any]> {
