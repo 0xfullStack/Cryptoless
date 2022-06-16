@@ -113,16 +113,3 @@ final class CryptolessTests: XCTestCase {
         wait(for: [expectation], timeout: TimeInterval(10000))
     }
 }
-
-import Moya
-private extension ObservableType where Element == [Any] {
-    func mapObject<T>(_ type: T.Type, using decoder: JSONDecoder? = nil) -> Observable<T> where T: Decodable {
-        return self.map { data -> T in
-            let decoder = decoder ?? JSONDecoder()
-            let dic = data.first as? [String: Any]
-            let array = dic?["data"] as? [Any]
-            let jsonData = try JSONSerialization.data(withJSONObject: array ?? [], options: .prettyPrinted)
-            return try decoder.decode(T.self, from: jsonData)
-        }
-    }
-}
