@@ -19,7 +19,6 @@ public final class Cryptoless {
         reachability?.rx.isReachable ?? .never()
     }()
     
-    private let web3Token: String
     private lazy var mannager: SocketManager = {
         return SocketManager(socketURL: URL(string: testSocketURL)!, config: [
             .log(true), .secure(false)
@@ -30,13 +29,17 @@ public final class Cryptoless {
         return SocketIOProxy(
             manager: mannager,
             namespace: EventNamespace.default.rawValue,
-            payload: ["token": web3Token]
+            payload: ["token": requestToken]
         )
     }()
     
     public init(web3Token: String) {
-        self.web3Token = web3Token
+        requestToken = web3Token
         subscribeReachability()
+    }
+    
+    deinit {
+        requestToken = ""
     }
 }
 

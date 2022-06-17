@@ -25,10 +25,11 @@ let provider = MoyaProvider<Endpoint>(
     session: DefaultAlamofireSession.sharedSession,
     plugins: [NetworkLoggerPlugin(), SignaturePlugin()]
 )
+var requestToken: String = ""
 
-let url = "https://api.cryptoless.io"
+let url = "https://api.cryptoless.net"
 let socketURL = "https://connect.cryptoless.net"
-let testSocketURL = "http://52.77.230.103:4001"
+let testSocketURL = "https://connect.cryptoless.net"
 
 public enum Endpoint {
     case register(_ ownerPublicKey: String)
@@ -201,6 +202,6 @@ extension Endpoint {
 extension Endpoint: Signaturable {
     
     public var signatureType: SignatureType {
-        return .identity(token: "eyJib2R5IjoiV2ViMyBUb2tlbiBWZXJzaW9uOiAyXG5Ob25jZTogMzE1MDA4MDFcbklzc3VlZCBBdDogTW9uLCAzMCBNYXkgMjAyMiAxMTo1Njo1MCBHTVRcbkV4cGlyYXRpb24gVGltZTogVHVlLCAzMCBNYXkgMjAyMyAxMTo1Njo1MCBHTVQiLCJzaWduYXR1cmUiOiIweDAwMzEwYTViZTRkYTYxZjM2Njc5YmJmNDM1ZjVmODYyNjAxNjQzMTJjNGQyMTEyOTY1ZGZkNjM3MjNmNDE0ODI0ZTMxZmI1NGM1OGViZjkyYjhiMTQyZDhhNDM1NWI2MDcxODljNzZhMDRlMThmN2QyZDhjNzhhMzIzZmI5YmJkMWIifQ==")
+        return .identity(token: requestToken)
     }
 }
