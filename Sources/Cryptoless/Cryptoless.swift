@@ -202,7 +202,7 @@ extension Cryptoless {
             }
     }
     
-    public func off(_ event: Event) -> Observable<Void> {
-        fatalError("Not implemented!!")
+    public func off() {
+        proxy.disconnected()
     }
 }

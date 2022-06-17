@@ -87,7 +87,7 @@
       "location" : "https://github.com/Modularize-Packages/ReactiveX.git",
       "state" : {
         "branch" : "main",
-        "revision" : "b641c853aadbc12e525a3d25715f7f5667287342"
+        "revision" : "adf03d70b6fe88f729d60c0f4859966968b0770b"
       }
     },
     {
@@ -123,7 +123,7 @@
       "location" : "https://github.com/Modularize-Packages/Signer.git",
       "state" : {
         "branch" : "main",
-        "revision" : "b4eb78f83c2b3871162466f40292f9d0ed4cb458"
+        "revision" : "222e53ed6678d6fbf56189304541026b83bf6a5a"
       }
     },
     {
