@@ -49,7 +49,7 @@ final class CryptolessTests: XCTestCase {
                 to: "0xADB6e54257207d6B5df204Aa4038C4B64B9586f1",
                 amount: "0.001"
             )
-            .flatMapLatest({ [weak self] transfer -> Observable<Transaction> in
+            .flatMapLatest({ [weak self] transfer -> Observable<Cryptoless.Transaction> in
                 guard let self = self else { return .never() }
                 print("=================================================================")
                 print("1. Make Transfer: \(transfer)")
@@ -58,14 +58,14 @@ final class CryptolessTests: XCTestCase {
                 let tx = transfer._embedded!.transactions.first!
                 let signing = tx.requiredSignings!.first!
                 let sig = try! key.sign([UInt8](hex: signing.hash))
-                let signatures = Transaction.Signature(
+                let signatures = Cryptoless.Transaction.Signature(
                     hash: signing.hash,
                     publicKey: signing.publicKeys.first!,
                     signature: sig.toHexString()
                 )
                 return self.cryptoless.signTransaction(id: tx.id, signatures: [signatures])
             })
-            .flatMapLatest({ [weak self] transaction -> Observable<Transaction> in
+            .flatMapLatest({ [weak self] transaction -> Observable<Cryptoless.Transaction> in
                 guard let self = self else { return .never() }
                 print("=================================================================")
                 print("2. SignTransaction: \(transaction)")
@@ -89,7 +89,7 @@ final class CryptolessTests: XCTestCase {
         
         cryptoless
             .on(.holder)
-            .mapObject([Holder].self)
+            .mapObject([Cryptoless.Holder].self)
             .subscribe(onNext: { holders in
                 print(holders)
                 print("=================================================================")
@@ -100,7 +100,7 @@ final class CryptolessTests: XCTestCase {
         
         cryptoless
             .on(.instruction)
-            .mapObject([Instruction].self)
+            .mapObject([Cryptoless.Instruction].self)
             .subscribe(onNext: { instructions in
                 print("=================================================================")
                 print("Instructions: \(instructions)")

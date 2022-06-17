@@ -37,7 +37,7 @@ public enum Endpoint {
     case deployAccount(_ networkCode: String, _ publicKeys: [String], _ threshold: Int)
     case accounts(_ publicKeys: [String])
     case transactions(_ status: String, _ limit: Int = 10, _ offset: Int = 0)
-    case signTransaction(_ id: String, _ signatures: [Transaction.Signature])
+    case signTransaction(_ id: String, _ signatures: [Cryptoless.Transaction.Signature])
     case sendTransaction(_ id: String)
     case coins(_ latestUpdatedAt: UInt64 = 0)
     case holders(_ latestUpdatedAt: UInt64 = 0)
