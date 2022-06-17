@@ -43,16 +43,18 @@ public final class Cryptoless {
     }
 }
 
-// MARK: - Coins
-
+// MARK: - HTTP Without Token
 extension Cryptoless {
-    
-    public func register(ownerPublicKey: String) -> Observable<Registration> {
+    public static func register(ownerPublicKey: String) -> Observable<Registration> {
         return provider
             .rx.request(.register(ownerPublicKey))
             .asObservable()
             .mapObject(Registration.self)
     }
+}
+
+// MARK: - HTTP With Token
+extension Cryptoless {
     
     public func fetchNetworks(latestUpdatedAt: UInt64 = 0) -> Observable<[Network]> {
         return provider
@@ -167,7 +169,7 @@ extension Cryptoless {
     }
 }
 
-// MARK: - Socket
+// MARK: - WebSocket
 extension Cryptoless {
     
     private func subscribeReachability() {
