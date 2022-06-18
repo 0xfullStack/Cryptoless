@@ -18,8 +18,8 @@ func dateStringToTimestamp(_ dateString: String) -> UInt64 {
 }
 
 public struct CryptolessError: Error, Decodable {
-    var code: Int
-    var message: String
+    public var code: Int
+    public var message: String
 }
 
 /// Extension for processing Responses into objects objects through JSONDecoder
