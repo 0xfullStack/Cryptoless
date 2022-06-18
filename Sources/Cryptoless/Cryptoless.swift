@@ -140,32 +140,32 @@ extension Cryptoless {
             .mapObject([Staking].self)
     }
 
-    public func transfer(symbol: String, networkCode: String, from: String, to: String, amount: String) -> Observable<TransactionWapper> {
+    public func transfer(symbol: String, networkCode: String, from: String, to: String, amount: String) -> Observable<TransactionWrapper> {
         return provider
             .rx.request(.transfer(symbol, networkCode, from, to, amount))
             .asObservable()
-            .mapObject(TransactionWapper.self)
+            .mapObject(TransactionWrapper.self)
     }
     
-    public func stake(symbol: String, networkCode: String, from: String, amount: String) -> Observable<TransactionWapper> {
+    public func stake(symbol: String, networkCode: String, from: String, amount: String) -> Observable<TransactionWrapper> {
         return provider
             .rx.request(.stake(symbol, networkCode, from, amount))
             .asObservable()
-            .mapObject(TransactionWapper.self)
+            .mapObject(TransactionWrapper.self)
     }
     
-    public func unstake(symbol: String, networkCode: String, from: String, amount: String) -> Observable<TransactionWapper> {
+    public func unstake(symbol: String, networkCode: String, from: String, amount: String) -> Observable<TransactionWrapper> {
         return provider
             .rx.request(.unstake(symbol, networkCode, from, amount))
             .asObservable()
-            .mapObject(TransactionWapper.self)
+            .mapObject(TransactionWrapper.self)
     }
     
-    public func claim(symbol: String, networkCode: String, from: String) -> Observable<TransactionWapper> {
+    public func claim(symbol: String, networkCode: String, from: String) -> Observable<TransactionWrapper> {
         return provider
             .rx.request(.claim(symbol, networkCode, from))
             .asObservable()
-            .mapObject(TransactionWapper.self)
+            .mapObject(TransactionWrapper.self)
     }
 }
 

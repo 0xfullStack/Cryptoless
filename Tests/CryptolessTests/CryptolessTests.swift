@@ -14,7 +14,7 @@ final class CryptolessTests: XCTestCase {
     
     let bag = DisposeBag()
     let cryptoless = Cryptoless(
-        web3Token:"eyJib2R5IjoiV2ViMyBUb2tlbiBWZXJzaW9uOiAyXG5Ob25jZTogMzE1MDA4MDFcbklzc3VlZCBBdDogTW9uLCAzMCBNYXkgMjAyMiAxMTo1Njo1MCBHTVRcbkV4cGlyYXRpb24gVGltZTogVHVlLCAzMCBNYXkgMjAyMyAxMTo1Njo1MCBHTVQiLCJzaWduYXR1cmUiOiIweDAwMzEwYTViZTRkYTYxZjM2Njc5YmJmNDM1ZjVmODYyNjAxNjQzMTJjNGQyMTEyOTY1ZGZkNjM3MjNmNDE0ODI0ZTMxZmI1NGM1OGViZjkyYjhiMTQyZDhhNDM1NWI2MDcxODljNzZhMDRlMThmN2QyZDhjNzhhMzIzZmI5YmJkMWIifQ=="
+        web3Token:"eyJib2R5IjoiV2ViMyBUb2tlbiBWZXJzaW9uOiAyXG5Ob25jZTogODA4MDc3Nzdcbklzc3VlZCBBdDogU2F0LCAxOCBKdW4gMjAyMiAwODo0Njo0OSBHTVRcbkV4cGlyYXRpb24gVGltZTogU3VuLCAxOCBKdW4gMjAyMyAwODo0Njo0OSBHTVQiLCJzaWduYXR1cmUiOiIweDZkY2JiY2Q1MmVhYmU0NTEwN2NjOWExMTMxMzYzMDZiOTY2YTExNWFhODY0YWI1ZGFkYTU5NWI0ODYyMjg4OTQxZWE3MDcwMDE2ODdjNmQ0MDRiYjY0NTc3YjI5ZjE2MjkwZjkxMzJmNGI4NTFhMjhjNjJiMDI4MWMwMmFmM2QzMWMifQ=="
     )
     let testSeedPhrase = "protect notable remember dress swamp wife train thrive blur spirit claw charge arch enhance crumble"
     

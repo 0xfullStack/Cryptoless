@@ -171,7 +171,7 @@ public extension Cryptoless {
         }
     }
 
-    public struct Transfer: Codable {
+    struct Transfer: Codable {
         public let id: String
         public let from: String
         public let to: String
@@ -188,7 +188,8 @@ public extension Cryptoless {
         }
     }
 
-    struct TransactionWapper: Codable {
+    struct TransactionWrapper: Codable {
+        public let networkCode: String
         public let _embedded: Expand?
         
         public struct Expand: Codable {
