@@ -172,6 +172,7 @@ extension Cryptoless {
 extension Cryptoless {
     
     private func subscribeReachability() {
+        releaseBag()
         let reachable = reachabilitySignal.filter { $0 }.startWith(true).map { _ in () }
         let enterForeground = UIApplication.rx.willEnterForeground.asObservable().startWith(())
         Observable
@@ -182,6 +183,10 @@ extension Cryptoless {
                 self.proxy.connectIfNeed()
             })
             .disposed(by: reachabilityBag)
+    }
+    
+    private func releaseBag() {
+        reachabilityBag = DisposeBag()
     }
     
     public func subscribe(_ event: Event) -> Observable<[Any]> {
@@ -215,12 +220,12 @@ extension Cryptoless {
     }
     
     public func disconnect() {
-        reachabilityBag = DisposeBag()
+        releaseBag()
         proxy.disconnected()
     }
     
     public func connect() {
-        reachabilityBag = DisposeBag()
+        releaseBag()
         proxy.connectIfNeed()
     }
 }
