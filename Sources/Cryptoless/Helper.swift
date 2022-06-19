@@ -54,7 +54,7 @@ private func mappingToExtractor(for response: Response, keyPath: String? = nil) 
         if currentRange.overlaps(validRange) {
             return try response.extractRaw(atKeyPath: keyPath)
         } else if let object = try? JSONDecoder().decode(CryptolessError.self, from: data) {
-            throw MoyaError.objectMapping(object, response)
+            throw object
         } else {
             throw MoyaError.statusCode(response)
         }

@@ -35,7 +35,7 @@ public final class Cryptoless {
     
     public init(web3Token: String) {
         requestToken = web3Token
-        subscribeReachability()
+//        subscribeReachability()
     }
     
     deinit {

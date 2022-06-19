@@ -2,6 +2,7 @@ import XCTest
 @testable import Cryptoless
 import Signer
 import RxSwift
+import Moya
 
 final class CryptolessTests: XCTestCase {
     func testExample() throws {
@@ -27,6 +28,10 @@ final class CryptolessTests: XCTestCase {
                 print("Networks: \(networks)")
                 print("=================================================================")
                 expectation.fulfill()
+            }, onError: { err in
+                if case MoyaError.objectMapping(let error, _) = err, let cryptolessError = error as? CryptolessError {
+                    print("ErrorCode: \(cryptolessError.code) =====>> Msg: \(cryptolessError.message)")
+                }
             })
             .disposed(by: bag)
         
