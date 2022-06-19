@@ -120,7 +120,8 @@ public extension Cryptoless {
         public let symbol: String
         public let name: String
         public let iconURL: String
-        public let category: String
+        public let category: String?
+        public let source: Int16
         public let price: Double?
         public let marketCap: Double?
         public let createdTime: String

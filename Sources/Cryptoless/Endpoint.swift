@@ -49,6 +49,8 @@ public enum Endpoint {
     case stake(_ symbol: String, _ networkCode: String, _ from: String, _ amount: String)
     case unstake(_ symbol: String, _ networkCode: String, _ from: String, _ amount: String)
     case claim(_ symbol: String, _ networkCode: String, _ from: String)
+    case addCustomToken(_ networkCode: String, _ address: String)
+    case refreshHolders(_ symbol: String)
 }
 
 extension Endpoint: TargetType{
@@ -91,12 +93,16 @@ extension Endpoint: TargetType{
             return "/staking/unbondings"
         case .claim:
             return "/staking/claims"
+        case .addCustomToken(_, _):
+            return "/cryptocurrencies/token-registrations"
+        case .refreshHolders(_):
+            return "/cryptocurrencies/holders"
         }
     }
 
     public var method: Moya.Method {
         switch self {
-        case .register, .deployAccount, .signTransaction, .transfer, .stake, .unstake, .claim:
+        case .register, .deployAccount, .signTransaction, .transfer, .stake, .unstake, .claim, .addCustomToken, .refreshHolders:
             return .post
         case .sendTransaction:
             return .patch
@@ -107,7 +113,7 @@ extension Endpoint: TargetType{
 
     public var task: Task {
         switch self {
-        case .register, .deployAccount, .signTransaction, .transfer, .stake, .unstake, .claim:
+        case .register, .deployAccount, .signTransaction, .transfer, .stake, .unstake, .claim, .addCustomToken:
             return .requestParameters(parameters: signedParams, encoding: JSONEncoding.default)
         default:
             return .requestParameters(parameters: signedParams, encoding: URLEncoding.default)
@@ -194,6 +200,13 @@ extension Endpoint {
             params["networkCode"] = networkCode
             params["coinSymbol"] = symbol
             params["delegator"] = from
+            return params
+        case .addCustomToken(let networkCode, let address):
+            params["networkCode"] = networkCode
+            params["address"] = address
+            return params
+        case .refreshHolders(let symbol):
+            params["symbol"] = symbol
             return params
         }
     }

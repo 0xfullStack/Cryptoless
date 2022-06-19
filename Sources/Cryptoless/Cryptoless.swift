@@ -166,6 +166,13 @@ extension Cryptoless {
             .asObservable()
             .mapObject(TransactionWrapper.self)
     }
+    
+    public func addCustomToken(networkCode: String, address: String) -> Observable<Coin> {
+        return provider
+            .rx.request(.addCustomToken(networkCode, address))
+            .asObservable()
+            .mapObject(Coin.self)
+    }
 }
 
 // MARK: - WebSocket
