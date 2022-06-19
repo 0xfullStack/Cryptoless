@@ -93,7 +93,7 @@ final class CryptolessTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Subscribe events")
         
         cryptoless
-            .on(.holder)
+            .subscribe(.holder)
             .mapObject([Cryptoless.Holder].self)
             .subscribe(onNext: { holders in
                 print(holders)
@@ -104,7 +104,7 @@ final class CryptolessTests: XCTestCase {
             .disposed(by: bag)
         
         cryptoless
-            .on(.instruction)
+            .subscribe(.instruction)
             .mapObject([Cryptoless.Instruction].self)
             .subscribe(onNext: { instructions in
                 print("=================================================================")
@@ -112,6 +112,15 @@ final class CryptolessTests: XCTestCase {
                 print("=================================================================")
             })
             .disposed(by: bag)
+        
+        cryptoless
+            .unsubscribe(.instruction)
+            .subscribe(onNext: {
+                
+            })
+            .disposed(by: bag)
+        
+        cryptoless.disconnect()
 
         try testEthereumTransfer()
         

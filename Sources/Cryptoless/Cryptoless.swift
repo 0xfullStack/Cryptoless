@@ -11,7 +11,7 @@ public final class Cryptoless {
         proxy.rx.connected.share()
     }
     
-    private let bag = DisposeBag()
+    private var reachabilityBag = DisposeBag()
     private lazy var reachability: Reachability? = {
         Reachability()
     }()
@@ -35,7 +35,6 @@ public final class Cryptoless {
     
     public init(web3Token: String) {
         requestToken = web3Token
-//        subscribeReachability()
     }
     
     deinit {
@@ -182,16 +181,17 @@ extension Cryptoless {
                 guard !connectStatus else { return }
                 self.proxy.connectIfNeed()
             })
-            .disposed(by: bag)
+            .disposed(by: reachabilityBag)
     }
     
-    public func on(_ event: Event) -> Observable<[Any]> {
+    public func subscribe(_ event: Event) -> Observable<[Any]> {
         connectStatus
             .filter { $0 }
             .flatMapLatest { [weak self] connected -> Observable<Void> in
                 guard let self = self else { return .never() }
+                self.subscribeReachability()
                 return self.proxy.rx.emit(
-                    event.action.rawValue,
+                    Event.Action.subscribe.rawValue,
                     SocketIODataItem(id: UUID(), scope: event.scope, payload: event.payload)
                 )
             }
@@ -202,7 +202,21 @@ extension Cryptoless {
             }
     }
     
-    public func off() {
+    public func unsubscribe(_ event: Event) -> Observable<Void> {
+        connectStatus
+            .filter { $0 }
+            .flatMapLatest { [weak self] connected -> Observable<Void> in
+                guard let self = self else { return .never() }
+                self.subscribeReachability()
+                return self.proxy.rx.emit(
+                    Event.Action.unsubscribe.rawValue,
+                    SocketIODataItem(id: UUID(), scope: event.scope, payload: event.payload)
+                )
+            }
+    }
+    
+    public func disconnect() {
+        reachabilityBag = DisposeBag()
         proxy.disconnected()
     }
 }

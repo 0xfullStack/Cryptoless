@@ -41,10 +41,6 @@ public enum Event {
         return [:]
     }
 
-    var action: Action {
-        return .subscribe
-    }
-
     enum Action: String {
         case get, subscribe, unsubscribe
     }
@@ -57,20 +53,4 @@ public enum Event {
     var keyPath: String {
         return "receive \(scope)"
     }
-
-//    func decode<T: Decodable>(data: [Any]) throws -> T {
-//        guard let dic = data.first as? [String: Any] else {
-//            return
-//        }
-//        guard let array = dic["data"] as? [Any] else {
-//            return
-//        }
-//        do {
-//            let jsonData = try JSONSerialization.data(withJSONObject: array, options: .prettyPrinted)
-//            let objects = try JSONDecoder().decode(T.self, from: jsonData)
-//            return objects
-//        } catch {
-//            throw Web3Error.wrongJsonFromat(error)
-//        }
-//    }
 }
