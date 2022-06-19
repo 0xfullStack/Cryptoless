@@ -207,7 +207,6 @@ extension Cryptoless {
             .filter { $0 }
             .flatMapLatest { [weak self] connected -> Observable<Void> in
                 guard let self = self else { return .never() }
-                self.subscribeReachability()
                 return self.proxy.rx.emit(
                     Event.Action.unsubscribe.rawValue,
                     SocketIODataItem(id: UUID(), scope: event.scope, payload: event.payload)
