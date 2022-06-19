@@ -219,4 +219,9 @@ extension Cryptoless {
         reachabilityBag = DisposeBag()
         proxy.disconnected()
     }
+    
+    public func connect() {
+        reachabilityBag = DisposeBag()
+        proxy.connectIfNeed()
+    }
 }
