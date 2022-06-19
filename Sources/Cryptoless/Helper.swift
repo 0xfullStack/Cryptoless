@@ -18,6 +18,10 @@ func dateStringToTimestamp(_ dateString: String) -> UInt64 {
 }
 
 public struct CryptolessError: Error, Decodable {
+    public init(code: Int, message: String) {
+        self.code = code
+        self.message = message
+    }
     public var code: Int
     public var message: String
 }
