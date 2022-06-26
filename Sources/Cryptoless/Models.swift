@@ -49,13 +49,13 @@ public extension Cryptoless {
     }
 
     struct Account: Codable, Identifiable {
-        public init(id: String, address: String, publicKeys: [String], threshold: Int16, networkCode: String, enable: Bool, createdTime: String, updatedTime: String) {
+        public init(id: String, address: String, publicKeys: [String], threshold: Int16, networkCode: String, status: Status, createdTime: String, updatedTime: String) {
             self.id = id
             self.address = address
             self.publicKeys = publicKeys
             self.threshold = threshold
             self.networkCode = networkCode
-            self.enable = enable
+            self.status = status
             self.createdTime = createdTime
             self.updatedTime = updatedTime
         }
@@ -65,9 +65,15 @@ public extension Cryptoless {
         public let publicKeys: [String]
         public let threshold: Int16
         public let networkCode: String
-        public let enable: Bool
+        public let status: Status
         public let createdTime: String
         public let updatedTime: String
+        
+        public enum Status: Int, Codable {
+            case disable = 0 // Not activated
+            case pending = 1 // In activating
+            case enable = 2  // Activated
+        }
     }
 
     struct DeployAccountRequest: Codable {
