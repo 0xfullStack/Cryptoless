@@ -9,7 +9,7 @@ import Foundation
 
 public extension Cryptoless {
     struct Network: Codable, Identifiable {
-        public init(id: String, code: String, name: String, platform: String, derivationPath: String, iconURL: String, blockExplorerURI: String?, feeCoin: Network.FeeCoin, evmChainId: Int16?, createdTime: String, updatedTime: String) {
+        public init(id: String, code: String, name: String, platform: String, derivationPath: String, iconURL: String?, blockExplorerURI: String?, feeCoin: Network.FeeCoin, evmChainId: Int16?, createdTime: String, updatedTime: String) {
             self.id = id
             self.code = code
             self.name = name
@@ -28,7 +28,7 @@ public extension Cryptoless {
         public let name: String
         public let platform: String
         public let derivationPath: String
-        public let iconURL: String
+        public let iconURL: String?
         public let blockExplorerURI: String?
         public let feeCoin: FeeCoin
         public let evmChainId: Int16?
