@@ -41,7 +41,7 @@ public enum Endpoint {
     case sendTransaction(_ id: String)
     case coins(_ latestUpdatedAt: UInt64 = 0)
     case holders(_ latestUpdatedAt: UInt64 = 0)
-    case delegators(_ latestUpdatedAt: String? = nil)
+    case delegators(_ latestUpdatedAt: UInt64 = 0)
     case instructions(_ latestUpdatedAt: UInt64 = 0)
     case balanceTransactions(_ symbol: String, _ address: String)
     case stakings(_ latestUpdatedAt: UInt64 = 0)
@@ -164,7 +164,7 @@ extension Endpoint {
             params["limit"] = "10000" // all
             return params
         case .delegators(let latestUpdatedAt):
-            params["filter"] = "updatedTime:\(dateStringToTimestamp(latestUpdatedAt ?? "")).."
+            params["filter"] = "updatedTime:\(latestUpdatedAt).."
             params["limit"] = "10000" // all
             params["expand"] = "staking"
             return params
