@@ -41,7 +41,7 @@ public enum Endpoint {
     case sendTransaction(_ id: String)
     case coins(_ latestUpdatedAt: UInt64 = 0)
     case holders(_ latestUpdatedAt: UInt64 = 0)
-    case delegators(_ latestUpdatedAt: UInt64 = 0)
+    case delegators
     case instructions(_ latestUpdatedAt: UInt64 = 0)
     case balanceTransactions(_ symbol: String, _ address: String)
     case stakings(_ latestUpdatedAt: UInt64 = 0)
@@ -163,14 +163,14 @@ extension Endpoint {
             params["filter"] = "updatedTime:\(latestUpdatedAt).."
             params["limit"] = "10000" // all
             return params
-        case .delegators(let latestUpdatedAt):
-            params["filter"] = "updatedTime:\(latestUpdatedAt).."
+        case .delegators:
             params["limit"] = "10000" // all
             params["expand"] = "staking"
             return params
         case .instructions(let latestUpdatedAt):
             params["filter"] = "updatedTime:\(latestUpdatedAt).."
-            params["limit"] = "50" // default
+            params["limit"] = "10000" // default
+            params["expand"] = "transactions"
             return params
         case .balanceTransactions:
             return params

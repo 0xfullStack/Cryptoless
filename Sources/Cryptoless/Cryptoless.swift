@@ -107,9 +107,9 @@ extension Cryptoless {
             .mapObject([Holder].self)
     }
     
-    public func fetchDelegators(latestUpdatedAt: UInt64 = 0) -> Observable<[Delegator]> {
+    public func fetchDelegators() -> Observable<[Delegator]> {
         return provider
-            .rx.request(.delegators(latestUpdatedAt))
+            .rx.request(.delegators)
             .asObservable()
             .mapObject([Delegator].self)
     }
