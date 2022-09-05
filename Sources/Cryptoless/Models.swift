@@ -236,5 +236,63 @@ public extension Cryptoless {
         public let createdTime: String
         public let updatedTime: String
     }
+    
+    struct SwapAddress: Codable {
+        public let symbol: String
+        public let address: String
+    }
+    
+    struct SwapQuote: Codable {
+        
+        public let symbol: String
+        public let contractAddress: String
+        
+        public let fromTokenAddress: String
+        public let fromTokenAmount: String
+        public let toTokenAddress: String
+        public let toTokenAmount: String
+        
+        public let protocols: [Swap.Protocol_]
+        public let routers: [Swap.Router]
+        
+        public let estimatedGas: String
+    }
+    
+    struct Swap: Codable {
+        
+        public struct Protocol_: Codable {
+            public let name: String
+            public let part: String
+            public let fromTokenAddress: String
+            public let toTokenAddress: String
+        }
+        
+        public struct Router: Codable {
+            
+            public let symbol: String
+            public let toTokenAmount: String
+            public let estimatedGas: String
+            public let protocols: [Protocol_]
+        }
+        
+        public struct Transaction: Codable {
+            public let from: String
+            public let to: String
+            public let data: String
+            public let value: String
+            public let gas: Int
+            public let gasPrice: String
+        }
+        
+        public let symbol: String
+        public let fromTokenAddress: String
+        public let fromTokenAmount: String
+        public let toTokenAddress: String
+        public let toTokenAmount: String
+        
+        public let protocols: [Swap.Protocol_]
+        public let routers: [Swap.Router]
+        public let tx: Swap.Transaction
+    }
 
 }

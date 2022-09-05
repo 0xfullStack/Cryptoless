@@ -51,6 +51,10 @@ public enum Endpoint {
     case claim(_ symbol: String, _ networkCode: String, _ from: String)
     case addCustomToken(_ networkCode: String, _ address: String)
     case refreshHolders(_ symbol: String)
+    
+    case swapAddress(chainId: String)
+    case swapQuote(chainId: String, from: String, to: String, amount: String)
+    case swap(chainId: String, from: String, to: String, amount: String, slippage: String)
 }
 
 extension Endpoint: TargetType{
@@ -97,6 +101,12 @@ extension Endpoint: TargetType{
             return "/cryptocurrencies/token-registrations"
         case .refreshHolders(_):
             return "/cryptocurrencies/holders"
+        case .swapAddress(let chainId):
+            return "/api/\(chainId)/address"
+        case .swapQuote(let chainId, _, _, _):
+            return "/api/\(chainId)/quote"
+        case .swap(let chainId, _, _, _, _):
+            return "/api/\(chainId)/swap"
         }
     }
 
@@ -113,7 +123,7 @@ extension Endpoint: TargetType{
 
     public var task: Task {
         switch self {
-        case .register, .deployAccount, .signTransaction, .transfer, .stake, .unstake, .claim, .addCustomToken:
+        case .register, .deployAccount, .signTransaction, .transfer, .stake, .unstake, .claim, .addCustomToken, .swap:
             return .requestParameters(parameters: signedParams, encoding: JSONEncoding.default)
         default:
             return .requestParameters(parameters: signedParams, encoding: URLEncoding.default)
@@ -207,6 +217,19 @@ extension Endpoint {
             return params
         case .refreshHolders(let symbol):
             params["symbol"] = symbol
+            return params
+        case .swapAddress:
+            return params
+        case .swapQuote(_, let from, let to, let amount):
+            params["fromTokenAddress"] = from
+            params["toTokenAddress"] = to
+            params["amount"] = amount
+            return params
+        case .swap(_, let from, let to, let amount, let slippage):
+            params["fromTokenAddress"] = from
+            params["toTokenAddress"] = to
+            params["amount"] = amount
+            params["slippage"] = slippage
             return params
         }
     }

@@ -169,6 +169,27 @@ extension Cryptoless {
             .asObservable()
             .mapObject(Coin.self)
     }
+    
+    public func swapAddress(chainId: String) -> Observable<SwapAddress> {
+        return provider
+            .rx.request(.swapAddress(chainId: chainId))
+            .asObservable()
+            .mapObject(SwapAddress.self)
+    }
+    
+    public func swapQuote(chainId: String, from: String, to: String, amount: String) -> Observable<SwapQuote> {
+        return provider
+            .rx.request(.swapQuote(chainId: chainId, from: from, to: to, amount: amount))
+            .asObservable()
+            .mapObject(SwapQuote.self)
+    }
+    
+    public func swap(chainId: String, from: String, to: String, amount: String, slippage: String) -> Observable<Swap> {
+        return provider
+            .rx.request(.swap(chainId: chainId, from: from, to: to, amount: amount, slippage: slippage))
+            .asObservable()
+            .mapObject(Swap.self)
+    }
 }
 
 // MARK: - WebSocket
