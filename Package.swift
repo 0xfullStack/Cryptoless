@@ -16,7 +16,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Modularize-Packages/ReactiveX.git", branch: "main"),
-        .package(url: "https://github.com/Modularize-Packages/Signer.git", branch: "main")
+        .package(url: "https://github.com/Modularize-Packages/Signer.git", branch: "main"),
+        .package(url: "https://github.com/Flight-School/AnyCodable", .upToNextMajor(from: "0.6.5"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -25,7 +26,8 @@ let package = Package(
             name: "Cryptoless",
             dependencies: [
                 .byName(name: "ReactiveX"),
-                .byName(name: "Signer")
+                .byName(name: "Signer"),
+                .byName(name: "AnyCodable"),
             ]),
         .testTarget(
             name: "CryptolessTests",

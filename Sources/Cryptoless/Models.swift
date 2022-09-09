@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import AnyCodable
 
 public extension Cryptoless {
     struct Network: Codable, Identifiable {
+        
         public init(id: String, code: String, name: String, platform: String, derivationPath: String, iconURL: String?, blockExplorerURI: String?, feeCoin: Network.FeeCoin, evmChainId: Int16?, createdTime: String, updatedTime: String) {
             self.id = id
             self.code = code
@@ -207,7 +209,7 @@ public extension Cryptoless {
     struct Instruction: Codable {
         public let id: String
         public let type: String
-        public let body: [String: String]
+        public let body: [String: AnyCodable]
         public let status: Int16
         public let networkCode: String
         public let createdTime: String
