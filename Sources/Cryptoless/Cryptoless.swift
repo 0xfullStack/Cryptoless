@@ -7,6 +7,20 @@ import UIKit
 
 public final class Cryptoless {
     
+    public enum Environment {
+        case production(web3Token: String)
+        case development(web3Token: String)
+        
+        var token: String {
+            switch self {
+            case .production(let web3Token):
+                return web3Token
+            case .development(let web3Token):
+                return web3Token
+            }
+        }
+    }
+    
     public var connectStatus: Observable<Bool> {
         proxy.rx.connected.share()
     }
@@ -33,8 +47,10 @@ public final class Cryptoless {
         )
     }()
     
-    public init(web3Token: String) {
-        requestToken = web3Token
+    private let env: Environment
+    public init(env: Environment) {
+        self.env = env
+        requestToken = env.token
     }
 }
 
